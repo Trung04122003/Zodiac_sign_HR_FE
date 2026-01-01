@@ -1,68 +1,243 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* ==================== BASE STYLES ==================== */
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
-  a:hover {
-    color: #747bff;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Poppins', sans-serif;
+    @apply font-semibold;
   }
-  button {
-    background-color: #f9f9f9;
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-sagittarius-400 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-sagittarius-500;
+  }
+}
+
+/* ==================== COMPONENT UTILITIES ==================== */
+
+@layer components {
+  /* Button Base */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-sagittarius-500 text-white hover:bg-sagittarius-600 focus:ring-sagittarius-400 shadow-md hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply btn bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-500 text-white hover:bg-red-600 focus:ring-red-400;
+  }
+
+  .btn-success {
+    @apply btn bg-green-500 text-white hover:bg-green-600 focus:ring-green-400;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-sagittarius-500 text-sagittarius-600 hover:bg-sagittarius-50 focus:ring-sagittarius-400;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-300 hover:shadow-zodiac hover:-translate-y-1;
+  }
+
+  /* Input */
+  .input {
+    @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-sagittarius-500 focus:ring-2 focus:ring-sagittarius-200 transition-colors;
+  }
+
+  .input-error {
+    @apply input border-red-500 focus:border-red-500 focus:ring-red-200;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  /* Zodiac Badge */
+  .zodiac-badge {
+    @apply badge px-3 py-1 text-sm font-semibold;
+  }
+
+  /* Element Badge */
+  .element-fire {
+    @apply bg-fire text-white;
+  }
+
+  .element-earth {
+    @apply bg-earth text-white;
+  }
+
+  .element-air {
+    @apply bg-air text-white;
+  }
+
+  .element-water {
+    @apply bg-water text-white;
+  }
+
+  /* Loading Spinner */
+  .spinner {
+    @apply animate-spin rounded-full border-4 border-gray-200 border-t-sagittarius-500;
+  }
+
+  /* Page Container */
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  }
+
+  /* Section Title */
+  .section-title {
+    @apply text-2xl font-bold text-gray-900 mb-6;
+  }
+}
+
+/* ==================== UTILITIES ==================== */
+
+@layer utilities {
+  /* Gradient backgrounds */
+  .bg-gradient-sagittarius {
+    background: linear-gradient(135deg, #9b59b6 0%, #3498db 100%);
+  }
+
+  .bg-gradient-fire {
+    background: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);
+  }
+
+  .bg-gradient-earth {
+    background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);
+  }
+
+  .bg-gradient-air {
+    background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+  }
+
+  .bg-gradient-water {
+    background: linear-gradient(135deg, #9b59b6 0%, #3498db 100%);
+  }
+
+  /* Text gradients */
+  .text-gradient-sagittarius {
+    @apply bg-gradient-sagittarius bg-clip-text text-transparent;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  /* Animations */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  /* Hover effects */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+}
+
+/* ==================== KEYFRAMES ==================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==================== DARK MODE ==================== */
+
+@layer base {
+  .dark {
+    @apply bg-gray-900 text-gray-100;
+  }
+
+  .dark .card {
+    @apply bg-gray-800 border-gray-700;
+  }
+
+  .dark .input {
+    @apply bg-gray-800 border-gray-700 text-gray-100;
+  }
+}
+
+/* ==================== PRINT STYLES ==================== */
+
+@media print {
+  .no-print {
+    display: none !important;
   }
 }
