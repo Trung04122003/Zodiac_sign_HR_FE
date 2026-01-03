@@ -47,9 +47,9 @@ interface ProtectedRouteProps {
 
 // eslint-disable-next-line react-refresh/only-export-components
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const isAuthenticated = !!localStorage.getItem('auth_token');
-
-  if (!isAuthenticated) {
+  const token = localStorage.getItem('auth_token');
+  
+  if (!token) {
     return <Navigate to="/login" replace />;
   }
 
@@ -59,9 +59,9 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 // Public Route (redirect to dashboard if authenticated)
 // eslint-disable-next-line react-refresh/only-export-components
 const PublicRoute = ({ children }: ProtectedRouteProps) => {
-  const isAuthenticated = !!localStorage.getItem('auth_token');
-
-  if (isAuthenticated) {
+  const token = localStorage.getItem('auth_token');
+  
+  if (token) {
     return <Navigate to="/dashboard" replace />;
   }
 

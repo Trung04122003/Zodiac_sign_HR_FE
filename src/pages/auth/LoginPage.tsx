@@ -38,9 +38,12 @@ const LoginPage: React.FC = () => {
     try {
       setIsLoading(true);
       await login(data);
-      navigate('/dashboard');
-    } catch (error) {
+      // Navigate will happen automatically after login success
+      navigate('/dashboard', { replace: true });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.error('Login failed:', error);
+      // Error toast is already shown in AuthContext
     } finally {
       setIsLoading(false);
     }

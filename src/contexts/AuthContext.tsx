@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, LoginRequest } from '@/types';
-import { authService } from '@/api';
+// TEMPORARILY using mock service for testing
+import mockAuthService from '@/api/services/authService.MOCK';
 import { toast } from 'react-hot-toast';
 
 interface AuthContextType {
@@ -26,8 +27,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const initializeAuth = () => {
       try {
-        const token = authService.getToken();
-        const storedUser = authService.getStoredUser();
+        const token = mockAuthService.getToken();
+        const storedUser = mockAuthService.getStoredUser();
 
         if (token && storedUser) {
           setUser(storedUser);
@@ -35,7 +36,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } catch (error) {
         console.error('Failed to initialize auth:', error);
         // Clear invalid data
-        authService.logout();
+        mockAuthService.logout();
       } finally {
         setIsLoading(false);
       }
@@ -47,10 +48,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (credentials: LoginRequest): Promise<void> => {
     try {
       setIsLoading(true);
-      const response = await authService.login(credentials);
+      const response = await mockAuthService.login(credentials);
 
       // Store auth data
-      authService.storeAuthData(response.token, response.user);
+      mockAuthService.storeAuthData(response.token, response.user);
 
       // Update state
       setUser(response.user);
@@ -59,7 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Login failed:', error);
-      toast.error(error.response?.data?.message || 'Login failed. Please try again.');
+      toast.error(error.message || 'Login failed. Please try again.');
       throw error;
     } finally {
       setIsLoading(false);
@@ -69,7 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = async (): Promise<void> => {
     try {
       setIsLoading(true);
-      await authService.logout();
+      await mockAuthService.logout();
       setUser(null);
       toast.success('Logged out successfully');
     } catch (error) {
