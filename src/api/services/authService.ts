@@ -4,30 +4,39 @@ import { ApiResponse, LoginRequest, LoginResponse, User } from '@/types';
 const authService = {
   /**
    * Login user
+   * POST /api/auth/login
    */
   login: async (credentials: LoginRequest): Promise<LoginResponse> => {
     const response = await axiosInstance.post<ApiResponse<LoginResponse>>(
       '/auth/login',
       credentials
     );
-    return handleApiResponse(response);
+    const data = handleApiResponse<LoginResponse>(response);
+    return data;
   },
 
   /**
-   * Logout user
+   * Logout user (optional - backend might not have this endpoint)
    */
   logout: async (): Promise<void> => {
-    await axiosInstance.post('/auth/logout');
+    try {
+      await axiosInstance.post('/auth/logout');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      // Ignore error if endpoint doesn't exist
+      console.log('Logout endpoint not available, clearing local data only');
+    }
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user');
   },
 
   /**
    * Get current user profile
+   * GET /api/auth/me
    */
   getCurrentUser: async (): Promise<User> => {
     const response = await axiosInstance.get<ApiResponse<User>>('/auth/me');
-    return handleApiResponse(response);
+    return handleApiResponse<User>(response);
   },
 
   /**
@@ -35,7 +44,7 @@ const authService = {
    */
   updateProfile: async (data: Partial<User>): Promise<User> => {
     const response = await axiosInstance.put<ApiResponse<User>>('/auth/profile', data);
-    return handleApiResponse(response);
+    return handleApiResponse<User>(response);
   },
 
   /**

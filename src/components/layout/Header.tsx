@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Bell, Search, LogOut, User, Moon, Sun } from 'lucide-react';
 import { Avatar } from '@/components/common/BadgeAvatarLoading';
@@ -6,12 +7,14 @@ import { ZodiacBadge } from '@/components/zodiac/ZodiacComponents';
 import { formatZodiacDisplay } from '@/utils/zodiacHelpers';
 
 const Header: React.FC = () => {
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const handleLogout = async () => {
     await logout();
+    navigate('/login', { replace: true });
   };
 
   const toggleDarkMode = () => {
