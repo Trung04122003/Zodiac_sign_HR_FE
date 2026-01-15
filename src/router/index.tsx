@@ -40,6 +40,7 @@ import SettingsPage from '@/pages/settings/SettingsPage';
 // 404
 import NotFoundPage from '@/pages/NotFoundPage';
 
+
 // Protected Route Component
 interface ProtectedRouteProps {
   children: ReactNode;
